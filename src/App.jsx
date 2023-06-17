@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // import LoginPage from './pages/LoginPage';
 import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
+import Chat from './components/Chat/Chat';
 
 import './App.css';
 import { CssBaseline, ThemeProvider } from '@mui/material';
@@ -16,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/" element={<h1>basma</h1>} />
+          <Route path="/" element={<Chat />} />
         </Routes>
       </Router>
     </ThemeProvider>
