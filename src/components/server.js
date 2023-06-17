@@ -34,6 +34,7 @@ export const checkPassword = (password) => {
 
 }
 export const logIn = (email, password, setPassword) => {
+    let response;
     if (password === '') {
         setPassword(() => ({
             error: true,
@@ -41,12 +42,14 @@ export const logIn = (email, password, setPassword) => {
         }));
         return false;
     } else {
-        //Login Endpoint
-        // axios.post('/users/forgot_password', { email: email.input, userName: userName.input }).then((res) => {
+        // Login Endpoint
+        axios.post('/users/login', { userName: email, password: password }).then((res) => {
 
-        // })
-
-        const response = false;
+            response = true;
+        }).catch((error) => {
+            console.log("Error", error)
+            response = false
+        })
         if (response) {
             setPassword(() => ({
                 error: false,
@@ -65,36 +68,40 @@ export const logIn = (email, password, setPassword) => {
     }
 };
 
-export const signUp = () => {
-    // if (password === '') {
-    //     setPassword(() => ({
-    //         error: true,
-    //         text: 'Please enter the password to continue',
-    //     }));
-    //     return false;
-    // } else {
-    //SigUp Endpoint
-    // axios.post('/users/forgot_password', { email: email.input, userName: userName.input }).then((res) => {
+export const signUp = (email, password, setPassword) => {
+    let response;
+    if (password === '') {
+        setPassword(() => ({
+            error: true,
+            text: 'Please enter the password to continue',
+        }));
+        return false;
+    } else {
+        // SigUp Endpoint
+        axios.post('/users/signup', { userName: email, password: password }).then((res) => {
 
-    // })
+            response = true
+        }).catch((error) => {
+            console.log("Error", error)
+            response = false
+        })
 
-    const response = false;
-    // if (response) {
-    //     setPassword(() => ({
-    //         error: false,
-    //         text: '',
-    //         password: password
-    //     }));
-    // }
-    // else {
-    //     setPassword(() => ({
-    //         error: true,
-    //         text: 'Incorrect email or password',
-    //         password: password
-    //     }));
-    // }
-    return response;
-    // }
+        if (response) {
+            setPassword(() => ({
+                error: false,
+                text: '',
+                password: password
+            }));
+        }
+        else {
+            setPassword(() => ({
+                error: true,
+                text: "Error when creating account",
+                password: password
+            }));
+        }
+        return response;
+    }
 };
 
 
@@ -107,9 +114,11 @@ export const responseGoogleFail = (googleResponse) => {
 export const responseGoogleSuccess = (googleResponse) => {
     console.log('Google', googleResponse);
     //Log in with google Endpoints
-    // axios.post('/users/google', { tokenId: googleResponse.tokenId }).then((response) => {
-
-
+    axios.post('/users/google', { tokenId: googleResponse.tokenId }).then((response) => { })
+        .catch((error) => {
+            console.log("Error", error)
+            return false;
+        })
     return true;
 
 };
