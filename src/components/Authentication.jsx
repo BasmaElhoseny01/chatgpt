@@ -6,38 +6,40 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import EditIcon from '@mui/icons-material/Edit';
 
-import Divider from '../Divider/Divider'
+import Divider from './Divider/Divider'
 
 //Google
 import { gapi } from 'gapi-script';
 import GoogleLogin from 'react-google-login';
-import ThirdPartyButton from '../ThirdPartyButton/ThirdPartyButton'
+import ThirdPartyButton from './ThirdPartyButton/ThirdPartyButton'
 
 
 //styles 
 import { AuthenticationContainer, Image, StyledLink } from './styles'
 
 //assets
-import chatGPT from '../../assets/ChatGPT.png'
-import Google from '../../assets/google.png'
+import chatGPT from '../assets/ChatGPT.png'
+import Google from '../assets/google.png'
 
 
 //server
-import { checkEmail, checkPassword, responseGoogleSuccess, responseGoogleFail } from './server'
-import { redirectHome } from '../../utils';
-
-//utils
+import { checkEmail, checkPassword, logIn, signUp, responseGoogleSuccess, responseGoogleFail } from './server'
+import { redirectHome } from '../utils';
+import PasswordRules from './PasswordRules/PasswordRules';
 
 //env Var
 const { REACT_APP_GOOGLECLIENTID } = process.env;
 
-function LogIn() {
 
+function Authentication(props) {
+    //props
+    const { login } = props
     //use States
     const [view, setView] = useState(1);
     const [email, setEmail] = useState({ email: "", error: false, text: "" });
     const [password, setPassword] = useState({ password: "", error: false, text: "" });
     const [showPassword, setShowPassword] = useState(false)
+    const [passwordStrength, setPasswordStrength] = useState({ show: false, state: false })
 
 
     const initClient = () => {
@@ -47,7 +49,6 @@ function LogIn() {
         });
     };
     gapi.load('client:auth2', initClient);
-
 
     return (
         <AuthenticationContainer>
@@ -60,7 +61,7 @@ function LogIn() {
                         fontWeight="bold"
                         sx={{ marginTop: "100px !important" }}
                     >
-                        Welcome Back
+                        {login ? <>Welcome Back</> : <>Create your account</>}
                     </Typography>
                     <TextField label="Email address" variant="outlined" fullWidth={true} sx={{ height: '50px', margin: "15px" }}
                         value={email.email}
@@ -78,12 +79,9 @@ function LogIn() {
                             setView(2)
                         }
                     }}>Continue</Button>
-                    <Typography
-                        variant='p'
-
-                    >
-                        Don't have an account?
-                        <StyledLink href="../signup">Sign up</StyledLink>
+                    <Typography variant='p'>
+                        {login ? <>Don't have an account?<StyledLink href="../signup">Sign up</StyledLink></>
+                            : <>Already have an account?<StyledLink href="../login">Log in</StyledLink></>}
                     </Typography>
 
                     <Divider />
@@ -106,7 +104,6 @@ function LogIn() {
                     >
                         Enter your password
                     </Typography>
-
 
                     <FormControl sx={{ m: 1, width: '100%' }} variant="outlined"
                         disabled
@@ -143,7 +140,13 @@ function LogIn() {
                                     ...prevState,
                                     password: e.target.value
                                 }));
-                            }}
+
+                                setPasswordStrength(() => ({
+                                    show: true,
+                                    state: checkPassword(e.target.value)
+                                }));
+                            }
+                            }
                             id="outlined-adornment-password"
                             type={showPassword ? 'text' : 'password'}
                             endAdornment={
@@ -162,19 +165,21 @@ function LogIn() {
                         <FormHelperText id="component-error-text" error={password.error}>{password.text}</FormHelperText>
                     </FormControl>
 
+
+                    {login ? null : passwordStrength.show ? <PasswordRules valid={passwordStrength.state} /> : null}
+
+
                     <Button variant="contained" fullWidth={true} sx={{ margin: "15px" }} onClick={() => {
-                        if (checkPassword(email.email, password.password, setPassword)) {
-                            //Redirect to hone page
+                        const response = login ? logIn(email.email, password.password, setPassword) : signUp()
+                        if (response) {
+                            //Redirect to home page
                             redirectHome();
                         }
                     }}>Continue</Button>
 
-                    <Typography
-                        variant='p'
-
-                    >
-                        Don't have an account?
-                        <StyledLink href="../signup">Sign up</StyledLink>
+                    <Typography variant='p'>
+                        {login ? <>Don't have an account?<StyledLink href="../signup">Sign up</StyledLink></>
+                            : <>Already have an account?<StyledLink href="../login">Log in</StyledLink></>}
                     </Typography>
 
                 </>
@@ -182,5 +187,4 @@ function LogIn() {
         </AuthenticationContainer >
     )
 }
-
-export default LogIn
+export default Authentication

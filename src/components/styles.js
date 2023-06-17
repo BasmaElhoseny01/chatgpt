@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import theme from '../../theme'
+import theme from '../theme'
 export const AuthenticationContainer = styled(Box)(() => ({
     margin: 'auto',
     // padding: "50px",
