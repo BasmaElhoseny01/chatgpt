@@ -24,7 +24,7 @@ function Message(props) {
           {copy
             ? <Box sx={{ margin: "auto 15px", }}><DoneIcon color="black" sx={{ margin: "-5px 10px", float: "right" }} /></Box>
             : <CopyToClipboard text={message}
-              onCopy={() => { console.log("abada"); setCopy(true) }}>
+              onCopy={() => { setCopy(true) }}>
               <ContentPasteIconCustom><ContentPasteIcon color="lightBlack" sx={{ margin: "-5px 10px", float: "right" }} /></ContentPasteIconCustom>
             </CopyToClipboard>
           }

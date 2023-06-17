@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Drawer, IconButton, Typography } from '@mui/material'
+import { Button, Drawer, Typography } from '@mui/material'
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -7,13 +7,15 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { DrawerHeader } from './styles'
 import ChatItem from './ChatItem'
-function SideBar() {
+function SideBar(props) {
+    const { chatId, setChatId } = props;
+
     const [open, setOpen] = useState(true)
     const [chats, setChats] = useState([])
-    const [chatId, setChatId] = useState(1)
 
     //useEffect
     useEffect(() => {
+        //Load Chats from API
         setChats([{ id: 1, title: "Hello chat" }, { id: 2, title: "Bye chat" }])
     }, [])
 

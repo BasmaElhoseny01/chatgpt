@@ -4,12 +4,15 @@ import { ChatContainer } from './styles'
 import SideBar from './SideBar/SideBar'
 import ChatBody from './Body/ChatBody'
 
+import { useState } from 'react'
 
 function Chat() {
+    const [chatId, setChatId] = useState();
     return (
         <ChatContainer>
-            <SideBar />
-            <ChatBody />
+            <SideBar chatId={chatId} setChatId={setChatId} />
+            
+            <ChatBody chatId={chatId} />
         </ChatContainer>
     )
 }
