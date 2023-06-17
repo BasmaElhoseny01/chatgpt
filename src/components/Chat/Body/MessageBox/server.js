@@ -24,7 +24,7 @@ export const askChat = (chatId, message, chat, setChat, setAnswering) => {
         // Add this response to the stack
         setChat(chat_q.concat(resDoc))
         setAnswering(false)
-    }, 5000)
+    }, 0)
 
 
     return
