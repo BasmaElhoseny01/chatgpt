@@ -89,7 +89,7 @@ class AuthenticationController {
     const email = req.body.email;
     // const userName = req.body.userName;
     const password = req.body.password;
-    if (!email || !password) {
+    if (!email  || !password) {
       // bad request
       res.status(400).json({
         status: "fail",
@@ -106,9 +106,9 @@ class AuthenticationController {
           errorType: 1,
         });
       } else {
-        const user = await this.UserServices.signUp(email, password);
+        const user = await this.UserServices.signUp(email,  password);
         if (user.success === true) {
-
+         
 
           this.createCookie(res, user.token, 201);
         } else {
@@ -130,7 +130,7 @@ class AuthenticationController {
    * @returns void
    */
   logIn = async (req, res, next) => {
-
+    
     if (!req.body.email || !req.body.password) {
       // bad request
       res.status(400).json({
@@ -139,7 +139,7 @@ class AuthenticationController {
       });
     } else {
       // const userName = req.body.userName;
-      const email = req.body.email;
+         const email = req.body.email;
       const password = req.body.password;
       // console.log(email);
       // console.log(password);
@@ -176,8 +176,8 @@ class AuthenticationController {
       status: "success",
     });
   };
-
-
+  
+ 
   /**
    * @property {Function} authorize check cookie sent by client inorder to validate user logged in
    * @param {object} req - request object sent by client
@@ -216,10 +216,10 @@ class AuthenticationController {
             errorMessage: "User not found",
           });
         } else {
-
-          req.user = user.data;
-          next();
-
+          
+            req.user = user.data;
+            next();
+          
         }
       } catch (err) {
         res.status(401).json({
@@ -229,8 +229,8 @@ class AuthenticationController {
       }
     }
   };
-
-
+ 
+  
   /**
    * @property {Function} googleAuth google authentication signup or login
    * @param {object} req - request object sent by client
@@ -281,7 +281,7 @@ class AuthenticationController {
       }
     }
   };
-
+  
   verifyEmail = async (req, res, next) => {
     const verificationToken = req.params.token;
     let result = await this.UserServices.verifyEmailToken(verificationToken);
@@ -296,7 +296,7 @@ class AuthenticationController {
       });
     }
   };
-
+ 
   checkResetTokentime = async (req, res, next) => {
     const resetToken = req.params.token;
     let result = await this.UserServices.checkResetTokenTime(resetToken);
@@ -347,7 +347,7 @@ class AuthenticationController {
       }
     }
   };
-
+ 
 }
 
 module.exports = AuthenticationController;

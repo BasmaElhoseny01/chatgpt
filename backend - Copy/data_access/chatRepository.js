@@ -53,7 +53,7 @@ class ChatRepository extends Repository {
   async getAllConversation(userId) {
     try {
      
-      let doc = await this.model.find({ "user": userId }).select("_id title createdAt");
+      let doc = await this.model.find({ "user": userId }).select({_id: false, id: '$_id' ,title:1, createdAt:1});
       // console.log(doc[0].owner);
       if (!doc) return { success: false, error: mongoErrors.NOT_FOUND };
       return { success: true, doc: doc };

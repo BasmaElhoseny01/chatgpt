@@ -190,6 +190,51 @@ class ChatService {
   }
   
 
+ async getTitleFromText(message) {
+  
+
+
+    try {
+
+     const prompt = `
+        Give me a short title for the following text : ${message} . Return response in the following parsable JSON format:
+
+        {
+           "title":"answer"
+        }
+
+    `;
+
+	const response = await openai.createCompletion({
+		model: "text-davinci-003",
+		prompt: prompt,
+		max_tokens: 2048,
+		temperature: 1,
+	});
+
+	const parsableJSONresponse = response.data.choices[0].text;
+	const parsedResponse = JSON.parse(parsableJSONresponse);
+
+	// console.log("Question: ", parsedResponse.Q);
+	// console.log("Answer: ", parsedResponse.A);
+
+      
+
+    
+        
+
+    
+      return { success: true, data: parsedResponse.title };
+    
+
+    } catch (err) {
+      return { success: false, error: chatErrors.IN_OPENAI };
+    }
+
+
+    
+  }
+  
 
   
  async getAllConversation(userId) {

@@ -8,7 +8,30 @@ class ChatController {
     this.chatService = ChatService;
   }
 
+ getTitleFromText = async (req, res) => {
+          console.log("heeeeeeeeeeeeeeeeeeee");
 
+    try {
+      console.log("heeeeeeeeeeeeeeeeeeee");
+      const response = await this.chatService.getTitleFromText(req.body.message);
+      if (!response.success) {
+      
+        return res.status(500).json({
+          status: "fail",
+          message: " Internal server error"
+        });
+      }
+      return res.status(200).json({
+        status: "OK",
+        data: response.data
+      });
+    }catch (err) {
+      return res.status(500).json({
+         status: "fail",
+         message:"Internal Server Error"
+      });
+    }
+  }
   startConversation = async (req, res) => {
     try {
       if (!req.body || !req.body.question||!req.user._id) {
@@ -165,7 +188,7 @@ class ChatController {
       });
     }
   }
-
+ 
 }
 
 module.exports = ChatController;

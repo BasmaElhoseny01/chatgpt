@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.use(AuthenticationController.authorize);
 
+
+router.route("/title").get(ChatController.getTitleFromText);
 router.route("/").post(ChatController.startConversation);
 router.route("/:conversationId").post(ChatController.continueConversation);
 router.route("/:conversationId").get(ChatController.getConversation);
