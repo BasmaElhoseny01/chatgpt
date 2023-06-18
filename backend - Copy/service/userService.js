@@ -64,10 +64,10 @@ class UserService {
    * @param {string} password - user password
    * @returns {object} - response of signup contain status of services and body to send to client
    */
-  async signUp(email, userName, password) {
+  async signUp(email,  password) {
     const userData = {
       email: email,
-      userName: userName,
+      
       password: password,
     };
     //this.checkPasswordStrength(password);
@@ -97,8 +97,9 @@ class UserService {
    * @param {string} password - user password
    * @returns {object} - response of login contain status of services and body to send to client
    */
-  async logIn(userName, password) {
-    let user = await this.userRepository.findByUserName(userName, "+password");
+  async logIn(email, password) {
+    let user = await this.userRepository.findByEmail(email);
+    console.log(user);
     if (user.success === false) {
       const response = {
         success: false,
@@ -126,11 +127,7 @@ class UserService {
       }
     }
   }
-  /**
-   * @property {Function} forgotUserName send username to user
-   * @param {string} email - user email to send username to it
-   * @returns {object} - response of forgotUserName contain status of services and body to send to client
-   */
+  
  
   async sendVerificationToken(user) {
     const verificationToken = user.createVerificationToken();
@@ -256,21 +253,11 @@ class UserService {
     return newObj;
   }
 
-  /**
-   * Checks if username is available, that is, it doesn't exist in the database
-   * @param {string} userName - The name of the user to be checked
-   * @returns {boolean}
-   */
-  async isAvailable(userName) {
-    //const user = await this.userRepository.findByUserName(userName);
-    const user = await this.userRepository.findByName(userName);
-    if (user.success) return false;
-    return true;
-  }
+ 
 
 
-  async checkPassword(password, userName) {
-    let user = await this.userRepository.findByUserName(userName, "+password");
+  async checkPassword(password, email) {
+    let user = await this.userRepository.findByEmail(email);
     return await user.doc.checkPassword(password, user.doc.password);
   }
  

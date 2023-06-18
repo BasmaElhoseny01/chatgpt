@@ -87,13 +87,13 @@ class AuthenticationController {
    */
   signUp = async (req, res, next) => {
     const email = req.body.email;
-    const userName = req.body.userName;
+    // const userName = req.body.userName;
     const password = req.body.password;
-    if (!email || !userName || !password) {
+    if (!email  || !password) {
       // bad request
       res.status(400).json({
         status: "fail",
-        errorMessage: "Provide username, email and password",
+        errorMessage: "Provide  email and password",
         errorType: 0,
       });
     } else {
@@ -106,7 +106,7 @@ class AuthenticationController {
           errorType: 1,
         });
       } else {
-        const user = await this.UserServices.signUp(email, userName, password);
+        const user = await this.UserServices.signUp(email,  password);
         if (user.success === true) {
          
 
@@ -131,16 +131,20 @@ class AuthenticationController {
    */
   logIn = async (req, res, next) => {
     
-    if (!req.body.userName || !req.body.password) {
+    if (!req.body.email || !req.body.password) {
       // bad request
       res.status(400).json({
         status: "fail",
-        errorMessage: "Provide username and password",
+        errorMessage: "Provide email and password",
       });
     } else {
-      const userName = req.body.userName;
-    const password = req.body.password;
-      const user = await this.UserServices.logIn(userName, password);
+      // const userName = req.body.userName;
+         const email = req.body.email;
+      const password = req.body.password;
+      // console.log(email);
+      // console.log(password);
+      const user = await this.UserServices.logIn(email, password);
+      // console.log("ouuuuuuuuuuuuuut");
       if (user.success === true) {
         //res.status(201).json(response.body);
         this.createCookie(res, user.token, 200);
@@ -250,9 +254,9 @@ class AuthenticationController {
         let user = await this.UserServices.getUserByEmail(email);
         if (user.success === false) {
           // user not found, signup new user
-          const userName = "user";
+          // const userName = "user";
           const password = this.UserServices.generateRandomPassword();
-          let user = await this.UserServices.signUp(email, userName, password);
+          let user = await this.UserServices.signUp(email, password);
           if (user.success === true) {
             this.createCookie(res, user.token, 201);
           } else {

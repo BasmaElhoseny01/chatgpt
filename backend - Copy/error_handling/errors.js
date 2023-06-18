@@ -26,7 +26,10 @@ exports.postErrors = Object.freeze({
 
 exports.chatErrors = Object.freeze({
   MONGO_ERR: 0,
-  NO_VALID_RESPONSE: 1
+  NO_VALID_RESPONSE: 1,
+  CONVERSATION_NOT_FOUND: 2,
+  IN_OPENAI: 3,
+  NOT_OWNER:4
 });
 
 
