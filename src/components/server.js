@@ -42,28 +42,63 @@ export const logIn = (email, password, setPassword) => {
         }));
         return false;
     } else {
-        // Login Endpoint
-        axios.post('/users/login', { userName: email, password: password }).then((res) => {
-
-            response = true;
-        }).catch((error) => {
-            console.log("Error", error)
-            response = false
-        })
-        if (response) {
+        axios.post('/users/login', { email: email, password: password }).then((res) => {
             setPassword(() => ({
                 error: false,
                 text: '',
                 password: password
             }));
-        }
-        else {
-            setPassword(() => ({
-                error: true,
-                text: 'Incorrect email or password',
-                password: password
-            }));
-        }
+            redirectHome();
+
+            return true//not used :(
+        }).catch((error) => {
+            if (error.response.status === 404) {
+                if (error.response.data.errorMessage === "User Not Found") {
+                    setPassword(() => ({
+                        error: true,
+                        text: 'This user doesn\'t exist',
+                    }));
+                }
+            }
+            else if (error.response.status === 400) {
+                if (error.response.data.errorMessage === "Incorrect Password") {
+                    setPassword(() => ({
+                        error: true,
+                        text: 'Incorrect email or password',
+                    }));
+                }
+            }
+            else {
+                setPassword(() => ({
+                    error: true,
+                    text: "Error when creating account",
+                    password: password
+                }));
+            }
+            return false;
+        })
+        // // Login Endpoint
+        // axios.post('/users/login', { userName: email, password: password }).then((res) => {
+
+        //     response = true;
+        // }).catch((error) => {
+        //     console.log("Error", error)
+        //     response = false
+        // })
+        // if (response) {
+        //     setPassword(() => ({
+        //         error: false,
+        //         text: '',
+        //         password: password
+        //     }));
+        // }
+        // else {
+        //     setPassword(() => ({
+        //         error: true,
+        //         text: 'Incorrect email or password',
+        //         password: password
+        //     }));
+        // }
         return response;
     }
 };
