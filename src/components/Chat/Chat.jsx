@@ -20,7 +20,7 @@ function Chat() {
     useEffect(() => {
         // console.log(cookies.jwt)
         if (!cookies.jwt) {
-            redirectLogin();
+            // redirectLogin();
         }
         //newChat
         setChatId(-1);
@@ -28,6 +28,7 @@ function Chat() {
 
     return (
         <ChatContainer>
+            <h1>Basdf</h1>
             <SideBar />
             <ChatBody />
         </ChatContainer>

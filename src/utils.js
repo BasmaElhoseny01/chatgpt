@@ -10,7 +10,7 @@ export const EmailFormat = (email) => {
 export const redirectHome = (time = 0) => {
   setTimeout(() => {
     // Redirect to home page
-    window.location.pathname = '';
+    window.location.pathname = process.env.PUBLIC_URL + '/';
   }, time);
 };
 
@@ -18,7 +18,7 @@ export const redirectHome = (time = 0) => {
 export const redirectLogin = (time = 0) => {
   setTimeout(() => {
     // Redirect to login page
-    window.location.pathname = 'login';
+    window.location.pathname = process.env.PUBLIC_URL + '/login';
   }, time);
 };
 

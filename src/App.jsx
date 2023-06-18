@@ -13,16 +13,17 @@ import ChatIdContextProvider from './contexts/ChatIdContext';
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      <h1>bosy1</h1>
+      {/* <CssBaseline />
       <ChatIdContextProvider>
         <Router className="App">
           <Routes>
-            <Route path="/login" element={<LogIn />} />
-            {/* <Route path="/signup" element={<SignUp />} />
-            <Route path="/" element={<Chat />} /> */}
+            <Route path={process.env.PUBLIC_URL + '/login'} element={<LogIn />} />
+            <Route path={process.env.PUBLIC_URL + '/signup'} element={<SignUp />} />
+            <Route path={process.env.PUBLIC_URL + '/'} element={<Chat />} />
           </Routes>
         </Router>
-      </ChatIdContextProvider>
+      </ChatIdContextProvider> */}
     </ThemeProvider>
   );
 }
