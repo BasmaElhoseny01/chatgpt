@@ -18,8 +18,8 @@ function App() {
         <Router className="App">
           <Routes>
             <Route path="/login" element={<LogIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/" element={<Chat />} />
+            {/* <Route path="/signup" element={<SignUp />} />
+            <Route path="/" element={<Chat />} /> */}
           </Routes>
         </Router>
       </ChatIdContextProvider>
