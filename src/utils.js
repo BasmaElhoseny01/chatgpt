@@ -64,8 +64,3 @@ export const groupBy = (arr, key) => {
 
   return groups;
 }
-
-// export const isLoggedIn = () => {
-//   console.log("Basma")
-//   console.log(Cookies.get('jwt'))
-// }

@@ -1,7 +1,7 @@
 import axios from '../../../services/instance'
 
 export const loadChat = (chatId, setChat) => {
-    if (chatId === -1) {
+    if (chatId === -1 || chatId === false) {
         setChat([])
         return
     }
@@ -14,7 +14,5 @@ export const loadChat = (chatId, setChat) => {
         })
     }
 
-    //Call Endpoint to load old chat
-    // setChat([{ id: 1, bot: false, message: "Good Morning" }, { id: 2, bot: true, message: "Good Morning I am bot" }, { id: 3, bot: false, message: "Nice to Meet you" }])
     return;
 }

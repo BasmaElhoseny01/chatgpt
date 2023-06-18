@@ -18,7 +18,7 @@ function Chat() {
     const [cookies, setCookie] = useCookies();
 
     useEffect(() => {
-        console.log(cookies.jwt)
+        // console.log(cookies.jwt)
         if (!cookies.jwt) {
             redirectLogin();
         }

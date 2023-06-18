@@ -31,7 +31,6 @@ export const loadChats = (setChats) => {
             return null
         })
         chats = groupBy(chats, 'date')
-        console.log(chats)
         setChats(chats)
     }).catch((error) => {
         setChats([])
