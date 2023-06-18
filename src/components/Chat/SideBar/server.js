@@ -1,5 +1,6 @@
 // services
 import axios from '../../../services/instance';
+import { groupBy, relativeTime } from '../../../utils';
 
 // export const newChat = (chats, setChats) => {
 // // NewChat Endpoint
@@ -23,7 +24,18 @@ import axios from '../../../services/instance';
 
 export const loadChats = (setChats) => {
     //call end point to load chats for a user
-    setChats([{ id: 1, title: "Hello chat" }, { id: 2, title: "Bye chat" }])
+    axios.get('/chats').then((res) => {
+        let chats = res.data.data
+        chats.map((chat) => {
+            chat.date = relativeTime(chat.createdAt)
+            return null
+        })
+        chats = groupBy(chats, 'date')
+        console.log(chats)
+        setChats(chats)
+    }).catch((error) => {
+        setChats([])
+    })
 }
 
 export const addNewChat = (chats, setChats, chatId, chatTitle) => {

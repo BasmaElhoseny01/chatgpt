@@ -3,9 +3,13 @@ import { Box, Typography } from '@mui/material'
 
 
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import { useChatIdContext } from '../../../contexts/ChatIdContext';
 
 function ChatItem(props) {
-    const { chat, select, setChatId } = props
+    const { chat, select } = props
+
+    const { setChatId } = useChatIdContext();
+
     return (
         <Box key={chat.id} backgroundColor={select ? "#343541" : "none"} padding="10px" margin="5px 8px" borderRadius="3px" display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start" onClick={() => setChatId(chat.id)}
             sx={{ cursor: "pointer" }}

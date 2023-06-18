@@ -11,6 +11,7 @@ import ChatItem from './ChatItem'
 import { useChatIdContext } from '../../../contexts/ChatIdContext'
 
 import { loadChats } from './server'
+import { relativeTime } from '../../../utils'
 
 
 function SideBar(props) {
@@ -18,12 +19,13 @@ function SideBar(props) {
     const { chatId, setChatId, chats, setChats } = useChatIdContext();
 
     const [open, setOpen] = useState(true)
-    // const [chats, setChats] = useState([])
+    const [time, setTime] = useState(-1)
 
     //useEffect
     useEffect(() => {
         //Load Chats from API
         loadChats(setChats);
+        console.log("Bas", time)
     }, [])
 
     return (
@@ -51,20 +53,18 @@ function SideBar(props) {
                             <ChevronLeftIcon />
                         </Button>
                     </DrawerHeader>
-
-                    <Typography variant='p' fontWeight="600" fontSize="0.75rem" color="#8E8EA0" margin="5px 20px" fontFamily="monospace">Today</Typography>
                     {
-                        chats.map((chat) =>
-                            <ChatItem chat={chat} setChatId={setChatId} select={chat.id === chatId} />)
+                        Object.keys(chats).map((time_stamp) => {
+                            return <>
+                                <Typography variant='p' fontWeight="600" fontSize="0.75rem" color="#8E8EA0" margin="5px 20px" fontFamily="monospace">{time_stamp}</Typography>
+                                {
+                                    chats[time_stamp].map((chat) =>
+                                        <ChatItem chat={chat} select={chat.id === chatId} />
+                                    )
+                                }
+                            </>
+                        })
                     }
-
-
-                    <Typography variant='p' fontWeight="600" fontSize="0.75rem" color="#8E8EA0" margin="5px 20px" fontFamily="monospace">Yesterday</Typography>
-                    {
-                        chats.map((chat) =>
-                            <ChatItem chat={chat} setChatId={setChatId} select={chat.id === chatId} />)
-                    }
-
                 </Drawer >
                 :
                 <DrawerHeader>

@@ -24,7 +24,6 @@ function ChatBody(props) {
     }, [chatId])
     return (
         <ChatBodyContainer>
-            <h1>Chat{chatId}</h1>
             <Button variant="outlined" color="black" sx={{ margin: '2px', width: "10%" }} fontFamily="monospace" onClick={() => logOut()}>
                 <LogoutIcon />
             </Button>
