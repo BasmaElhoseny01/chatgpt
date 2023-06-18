@@ -24,12 +24,11 @@ function ChatBody(props) {
     }, [chatId])
     return (
         <ChatBodyContainer>
-            <h1>Chat{chatId}</h1>
             <Button variant="outlined" color="black" sx={{ margin: '2px', width: "10%" }} fontFamily="monospace" onClick={() => logOut()}>
                 <LogoutIcon />
             </Button>
             {chat.map((message) =>
-                < Message key={message.id} chat={message.bot} message={message.message} />
+                < Message key={message._id} chat={!(message.role === 'user')} message={message.text} />
             )}
             <MessageBox chat={chat} setChat={setChat} />
 

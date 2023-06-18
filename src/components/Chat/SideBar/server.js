@@ -23,7 +23,6 @@ import { groupBy, relativeTime } from '../../../utils';
 
 
 export const loadChats = (setChats) => {
-    console.log("Basma")
     //call end point to load chats for a user
     axios.get('/chats').then((res) => {
         let chats = res.data.data
