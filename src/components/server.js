@@ -145,7 +145,9 @@ export const responseGoogleFail = (googleResponse) => {
 export const responseGoogleSuccess = (googleResponse) => {
     console.log('Google', googleResponse);
     //Log in with google Endpoints
-    axios.post('/users/google', { tokenId: googleResponse.tokenId }).then((response) => { })
+    axios.post('/users/google', { tokenId: googleResponse.tokenId }).then((response) => {
+        redirectHome();
+    })
         .catch((error) => {
             console.log("Error", error)
             return false;
