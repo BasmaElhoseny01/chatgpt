@@ -23,6 +23,7 @@ import { groupBy, relativeTime } from '../../../utils';
 
 
 export const loadChats = (setChats) => {
+    console.log("Basma")
     //call end point to load chats for a user
     axios.get('/chats').then((res) => {
         let chats = res.data.data
@@ -39,6 +40,12 @@ export const loadChats = (setChats) => {
 }
 
 export const addNewChat = (chats, setChats, chatId, chatTitle) => {
-    //Title of Chat
-    setChats(chats.concat({ id: chatId, title: chatTitle }))
+    // Title of Chat
+    if (!('today' in chats)) {
+        chats.today = [{ id: chatId, title: chatTitle }];
+    }
+    else {
+        chats['today'] = chats['today'].concat({ id: chatId, title: chatTitle })
+    }
+    setChats(chats)
 }

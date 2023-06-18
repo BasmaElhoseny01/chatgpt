@@ -5,14 +5,28 @@ const sendMessage = (message) => {
     return { id: new Date(), bot: false, message: message }
 }
 
-const receiveMessage = (chatId, setChatId, message, setChat, setAnswering, chat_q, chats, setChats) => {
+const receiveMessage = async (chatId, setChatId, message, setChat, setAnswering, chat_q, chats, setChats) => {
     if (chatId === -1) {
-        //new Chat
-        axios.post('/chats', { question: message }).then((res) => {
+        let chatTitle = ""
+        // New Chat
+        //get title for this Question
+        axios.get('/chats/title',
+            {
+                params: {
+                    message
+                }
+            }
+        ).then((response) => {
+            chatTitle = response.data.data;
+            // addNewChat(chats, setChats, "temp", chatTitle)
+            console.log("1")
+            return axios.post('/chats', { question: message, title: chatTitle })
+        }).then((res) => {
+            // console.log("2")
             const chatID = res.data.data.chat_id;
-            const chatTitle = "New Chat"
             setChatId(chatID);
-            //Add this Chat to the chat stack
+            // Add this Chat to the chat stack
+            //Update Id for this new Chat
             addNewChat(chats, setChats, chatID, chatTitle)
 
             // Add this response to the stack
@@ -21,6 +35,7 @@ const receiveMessage = (chatId, setChatId, message, setChat, setAnswering, chat_
             setAnswering(false);
 
         }).catch((error) => {
+            //check if error is getting title
             console.log(error)
         })
 
@@ -45,7 +60,6 @@ export const askChat = (chatId, setChatId, message, chat, setChat, setAnswering,
     const resDoc = receiveMessage(chatId, setChatId, message, setChat, setAnswering, chat_q, chats, setChats);
     // setChat(chat_q.concat(resDoc))
     // setAnswering(false)
-
 
     return
 }

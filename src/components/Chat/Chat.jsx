@@ -29,7 +29,6 @@ function Chat() {
     return (
         <ChatContainer>
             <SideBar />
-
             <ChatBody />
         </ChatContainer>
     )

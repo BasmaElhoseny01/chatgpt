@@ -25,7 +25,6 @@ function SideBar(props) {
     useEffect(() => {
         //Load Chats from API
         loadChats(setChats);
-        console.log("Bas", time)
     }, [])
 
     return (

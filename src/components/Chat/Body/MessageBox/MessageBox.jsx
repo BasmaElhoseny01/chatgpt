@@ -20,7 +20,7 @@ function MessageBox(props) {
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
-            askChat(chatId, setChatId, message, chat, setChat, setAnswering);
+            askChat(chatId, setChatId, message, chat, setChat, setAnswering, chatId === -1 ? chats : null, chatId === -1 ? setChats : null);
             setMessage("");
         }
     }
