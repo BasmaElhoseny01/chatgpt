@@ -1,5 +1,5 @@
 
-import { EmailFormat, redirectHome } from '../utils';
+import { EmailFormat, redirectHome, redirectLogin } from '../utils';
 // services
 import axios from '../services/instance';
 
@@ -33,6 +33,7 @@ export const checkPassword = (password) => {
     return true;
 
 }
+
 export const logIn = (email, password, setPassword) => {
     let response;
     if (password === '') {
@@ -77,28 +78,6 @@ export const logIn = (email, password, setPassword) => {
             }
             return false;
         })
-        // // Login Endpoint
-        // axios.post('/users/login', { userName: email, password: password }).then((res) => {
-
-        //     response = true;
-        // }).catch((error) => {
-        //     console.log("Error", error)
-        //     response = false
-        // })
-        // if (response) {
-        //     setPassword(() => ({
-        //         error: false,
-        //         text: '',
-        //         password: password
-        //     }));
-        // }
-        // else {
-        //     setPassword(() => ({
-        //         error: true,
-        //         text: 'Incorrect email or password',
-        //         password: password
-        //     }));
-        // }
         return response;
     }
 };
@@ -149,6 +128,14 @@ export const signUp = (email, password, setPassword) => {
     }
 };
 
+
+export const logOut = () => {
+    axios.post('/users/logout').then((res) => {
+        redirectLogin();
+    }).catch((error) => {
+
+    })
+};
 
 
 export const responseGoogleFail = (googleResponse) => {

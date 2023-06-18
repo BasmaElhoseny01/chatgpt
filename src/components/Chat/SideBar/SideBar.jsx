@@ -58,7 +58,7 @@ function SideBar(props) {
                             <ChatItem chat={chat} setChatId={setChatId} select={chat.id === chatId} />)
                     }
 
-                </Drawer>
+                </Drawer >
                 :
                 <DrawerHeader>
                     <Button variant="outlined" color="black" sx={{ margin: '2px', padding: '5px', minWidth: '10px' }} onClick={() => setOpen(true)}>
