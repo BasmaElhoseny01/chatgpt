@@ -41,7 +41,17 @@ const receiveMessage = async (chatId, setChatId, message, setChat, setAnswering,
 
     }
     else {
-        //old chat
+        //existing chat
+        axios.post(`/chats/${chatId}`, { question: message }).then((res) => {
+            // Add this response to the stack
+            const resDoc = { id: new Date(), bot: true, message: res.data.data }
+            setChat(chat_q.concat(resDoc))
+            setAnswering(false);
+        }).catch((error) => {
+            //check if error is getting title
+            console.log(error)
+        })
+
     }
     //Call EndPoint
     // const message = "Response from Bot"
