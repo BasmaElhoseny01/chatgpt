@@ -170,11 +170,7 @@ function Authentication(props) {
 
 
                     <Button variant="contained" fullWidth={true} sx={{ margin: "15px" }} onClick={() => {
-                        const response = login ? logIn(email.email, password.password, setPassword) : signUp(email.email, password.password, setPassword)
-                        if (response) {
-                            //Redirect to home page
-                            redirectHome();
-                        }
+                        login ? logIn(email.email, password.password, setPassword) : signUp(email.email, password.password, setPassword)
                     }}>Continue</Button>
 
                     <Typography variant='p'>
