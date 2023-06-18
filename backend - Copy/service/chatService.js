@@ -19,7 +19,7 @@ class ChatService {
     this.chatRepository = ChatRepository;
     this.messageRepository = MessageRepository;
   }
-  async startConversation(message,userId) {
+  async startConversation(message,title,userId) {
   
 
     // try {
@@ -50,7 +50,7 @@ class ChatService {
         //create chat with first message
           // console.log("uuuuuuuuuuuuuuuuuuuu");
 
-      const chatObject = await this.chatRepository.addChat(firstMessage.doc._id, userId);
+      const chatObject = await this.chatRepository.addChat(firstMessage.doc._id,title, userId);
       console.log(chatObject);
         //append other messages to the chat 
         const appendQuestion = await this.chatRepository.appendToChat(addedQuestion.doc._id, chatObject.doc._id);

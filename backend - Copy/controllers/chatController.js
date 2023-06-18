@@ -11,9 +11,15 @@ class ChatController {
  getTitleFromText = async (req, res) => {
           console.log("heeeeeeeeeeeeeeeeeeee");
 
-    try {
+   try {
+     if (!req.query.message) {
+         return res.status(400).json({
+          status: "fail",
+          message:"Bad Request"
+        });
+      }
       console.log("heeeeeeeeeeeeeeeeeeee");
-      const response = await this.chatService.getTitleFromText(req.body.message);
+      const response = await this.chatService.getTitleFromText(req.query.message);
       if (!response.success) {
       
         return res.status(500).json({
@@ -34,7 +40,7 @@ class ChatController {
   }
   startConversation = async (req, res) => {
     try {
-      if (!req.body || !req.body.question||!req.user._id) {
+      if (!req.body || !req.body.question||!req.body.title||!req.user._id) {
         return res.status(400).json({
           status: "fail",
           message:"Bad Request"
@@ -42,7 +48,7 @@ class ChatController {
         // return;
       }
       const message = req.body.question;
-      const response = await this.chatService.startConversation(message,req.user._id);
+      const response = await this.chatService.startConversation(message,req.body.title,req.user._id);
            console.log(response);
 
       if (!response.success) {
