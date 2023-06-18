@@ -8,10 +8,13 @@ import { useState } from 'react'
 import { isLoggedIn, redirectLogin } from '../../utils'
 
 import { useCookies } from 'react-cookie';
+import { useChatIdContext } from '../../contexts/ChatIdContext'
 
 
 function Chat() {
-    const [chatId, setChatId] = useState();
+    // const [chatId, setChatId] = useState();
+    const { setChatId } = useChatIdContext()
+
     const [cookies, setCookie] = useCookies();
 
     useEffect(() => {
@@ -25,9 +28,9 @@ function Chat() {
 
     return (
         <ChatContainer>
-            <SideBar chatId={chatId} setChatId={setChatId} />
+            <SideBar />
 
-            <ChatBody chatId={chatId} setchatId={setChatId} />
+            <ChatBody />
         </ChatContainer>
     )
 }

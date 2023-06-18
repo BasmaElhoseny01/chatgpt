@@ -1,20 +1,22 @@
 import axios from '../../../../services/instance'
 const sendMessage = (message) => {
     //return message
-    return { id: 1, bot: false, message: message }
+    return { id: new Date(), bot: false, message: message }
 }
 
-const receiveMessage = (chatId, setchatId, message, chat, setChat, setAnswering) => {
+const receiveMessage = (chatId, setChatId, message, setChat, setAnswering, chat_q) => {
     if (chatId === -1) {
         //new Chat
         axios.post('/chats', { question: message }).then((res) => {
+            setChatId(res.data.data.chat_id);
+
+            // Add this response to the stack
+            const resDoc = { id: new Date(), bot: true, message: res.data.data.answer }
+            setChat(chat_q.concat(resDoc))
             setAnswering(false);
 
-            setchatId(res.data.data.chat_id);
-
         }).catch((error) => {
-            // if (error.response.status === 400) {
-            // }
+            console.log(error)
         })
 
     }
@@ -26,7 +28,7 @@ const receiveMessage = (chatId, setchatId, message, chat, setChat, setAnswering)
     return { id: 10, bot: true, message: message }
 }
 
-export const askChat = (chatId, setchatId, message, chat, setChat, setAnswering) => {
+export const askChat = (chatId, setChatId, message, chat, setChat, setAnswering) => {
     setAnswering(true)
     const msgDoc = sendMessage(message);
     // Add this msg to the stack
@@ -35,8 +37,7 @@ export const askChat = (chatId, setchatId, message, chat, setChat, setAnswering)
 
 
     //Take Response from the Bot
-    const resDoc = receiveMessage(chatId, setchatId, message, chat, setChat, setAnswering);
-    // Add this response to the stack
+    const resDoc = receiveMessage(chatId, setChatId, message, setChat, setAnswering, chat_q);
     // setChat(chat_q.concat(resDoc))
     // setAnswering(false)
 

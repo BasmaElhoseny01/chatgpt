@@ -9,8 +9,11 @@ import { Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { logOut } from '../../server';
 
+import { useChatIdContext } from '../../../contexts/ChatIdContext';
+
 function ChatBody(props) {
-    const { chatId, setchatId } = props;
+    const { chatId } = useChatIdContext();
+
 
     //useState
     const [chat, setChat] = useState([]);
@@ -28,7 +31,7 @@ function ChatBody(props) {
             {chat.map((message) =>
                 < Message key={message.id} chat={message.bot} message={message.message} />
             )}
-            <MessageBox chatId={chatId} setchatId={setchatId} chat={chat} setChat={setChat} />
+            <MessageBox chat={chat} setChat={setChat} />
 
         </ChatBodyContainer>
     )

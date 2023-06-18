@@ -8,10 +8,12 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { DrawerHeader } from './styles'
 import ChatItem from './ChatItem'
 
-// import { newChat } from './server'
+import { useChatIdContext } from '../../../contexts/ChatIdContext'
+
 
 function SideBar(props) {
-    const { chatId, setChatId } = props;
+
+    const { chatId, setChatId } = useChatIdContext();
 
     const [open, setOpen] = useState(true)
     const [chats, setChats] = useState([])
@@ -42,7 +44,7 @@ function SideBar(props) {
                     open={open}
                 >
                     <DrawerHeader>
-                        <Button variant="outlined" color="grey" sx={{ margin: '2px', width: "70%" }} fontFamily="monospace" onClick={()=>setChatId(-1)}>+ New chat</Button>
+                        <Button variant="outlined" color="grey" sx={{ margin: '2px', width: "70%" }} fontFamily="monospace" onClick={() => setChatId(-1)}>+ New chat</Button>
                         <Button variant="outlined" color="grey" sx={{ margin: '2px', width: "20%" }} onClick={() => setOpen(false)}>
                             <ChevronLeftIcon />
                         </Button>
