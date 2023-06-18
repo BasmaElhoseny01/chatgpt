@@ -164,14 +164,14 @@ class AuthenticationController {
    * @returns void
    */
   logOut = (req, res) => {
-    //res.clearCookie("jwt");
-    res.cookie("jwt", "loggedout", {
-      expires: new Date(Date.now() + 10 * 1000),
-      sameSite: "None",
-      httpOnly: process.env.NODE_ENV === "production" ? true : false,
-      // secure: process.env.NODE_ENV === "production" ? true : false,
-      secure: true
-    });
+    res.clearCookie("jwt");
+    // res.cookie("jwt", "loggedout", {
+    //   expires: new Date(Date.now() + 10 * 1000),
+    //   sameSite: "None",
+    //   httpOnly: process.env.NODE_ENV === "production" ? true : false,
+    //   // secure: process.env.NODE_ENV === "production" ? true : false,
+    //   secure: true
+    // });
     res.status(200).json({
       status: "success",
     });
