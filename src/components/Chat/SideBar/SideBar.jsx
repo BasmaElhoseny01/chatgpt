@@ -7,16 +7,23 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { DrawerHeader } from './styles'
 import ChatItem from './ChatItem'
+
+import { useChatIdContext } from '../../../contexts/ChatIdContext'
+
+import { loadChats } from './server'
+
+
 function SideBar(props) {
-    const { chatId, setChatId } = props;
+
+    const { chatId, setChatId, chats, setChats } = useChatIdContext();
 
     const [open, setOpen] = useState(true)
-    const [chats, setChats] = useState([])
+    // const [chats, setChats] = useState([])
 
     //useEffect
     useEffect(() => {
         //Load Chats from API
-        setChats([{ id: 1, title: "Hello chat" }, { id: 2, title: "Bye chat" }])
+        loadChats(setChats);
     }, [])
 
     return (
@@ -39,7 +46,7 @@ function SideBar(props) {
                     open={open}
                 >
                     <DrawerHeader>
-                        <Button variant="outlined" color="grey" sx={{ margin: '2px', width: "70%" }} fontFamily="monospace" onClick={() => console.log("new chat")}>+ New chat</Button>
+                        <Button variant="outlined" color="grey" sx={{ margin: '2px', width: "70%" }} fontFamily="monospace" onClick={() => setChatId(-1)}>+ New chat</Button>
                         <Button variant="outlined" color="grey" sx={{ margin: '2px', width: "20%" }} onClick={() => setOpen(false)}>
                             <ChevronLeftIcon />
                         </Button>
@@ -58,7 +65,7 @@ function SideBar(props) {
                             <ChatItem chat={chat} setChatId={setChatId} select={chat.id === chatId} />)
                     }
 
-                </Drawer>
+                </Drawer >
                 :
                 <DrawerHeader>
                     <Button variant="outlined" color="black" sx={{ margin: '2px', padding: '5px', minWidth: '10px' }} onClick={() => setOpen(true)}>

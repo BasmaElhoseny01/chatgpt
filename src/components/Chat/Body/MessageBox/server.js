@@ -1,30 +1,50 @@
-const sendMessage = (chatId, message) => {
-    //Call Endpoint
-    console.log(message)
-    //return object of the new message
-    return { id: 1, bot: false, message: message }
+import axios from '../../../../services/instance'
+import { addNewChat } from '../../SideBar/server'
+const sendMessage = (message) => {
+    //return message
+    return { id: new Date(), bot: false, message: message }
 }
 
-const receiveMessage = (chatId) => {
+const receiveMessage = (chatId, setChatId, message, setChat, setAnswering, chat_q, chats, setChats) => {
+    if (chatId === -1) {
+        //new Chat
+        axios.post('/chats', { question: message }).then((res) => {
+            const chatID = res.data.data.chat_id;
+            const chatTitle = "New Chat"
+            setChatId(chatID);
+            //Add this Chat to the chat stack
+            addNewChat(chats, setChats, chatID, chatTitle)
+
+            // Add this response to the stack
+            const resDoc = { id: new Date(), bot: true, message: res.data.data.answer }
+            setChat(chat_q.concat(resDoc))
+            setAnswering(false);
+
+        }).catch((error) => {
+            console.log(error)
+        })
+
+    }
+    else {
+        //old chat
+    }
     //Call EndPoint
-    const message = "Response from Bot"
+    // const message = "Response from Bot"
     return { id: 10, bot: true, message: message }
 }
 
-export const askChat = (chatId, message, chat, setChat, setAnswering) => {
+export const askChat = (chatId, setChatId, message, chat, setChat, setAnswering, chats, setChats) => {
     setAnswering(true)
-    const msgDoc = sendMessage(chatId, message);
+    const msgDoc = sendMessage(message);
     // Add this msg to the stack
     const chat_q = chat.concat(msgDoc);
     setChat(chat.concat(msgDoc))
 
-    setTimeout(() => {
-        //Take Response from the Bot
-        const resDoc = receiveMessage(chatId);
-        // Add this response to the stack
-        setChat(chat_q.concat(resDoc))
-        setAnswering(false)
-    }, 0)
+
+    //Take Response from the Bot
+    const resDoc = receiveMessage(chatId, setChatId, message, setChat, setAnswering, chat_q, chats, setChats);
+    // setChat(chat_q.concat(resDoc))
+    // setAnswering(false)
 
 
     return

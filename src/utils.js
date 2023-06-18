@@ -1,3 +1,5 @@
+// import { Cookies } from 'react-cookie';
+
 export const EmailFormat = (email) => {
   if (/\S+@\S+\.\S+/.test(email)) return true;
   return false;
@@ -19,3 +21,9 @@ export const redirectLogin = (time = 0) => {
     window.location.pathname = 'login';
   }, time);
 };
+
+
+// export const isLoggedIn = () => {
+//   console.log("Basma")
+//   console.log(Cookies.get('jwt'))
+// }

@@ -7,17 +7,20 @@ import SendIcon from '@mui/icons-material/Send';
 
 //Server
 import { askChat } from './server';
+import { useChatIdContext } from '../../../../contexts/ChatIdContext';
 
 function MessageBox(props) {
+    const { chatId, setChatId, chats, setChats } = useChatIdContext();
 
-    const { chatId, chat, setChat } = props
+
+    const { chat, setChat } = props
 
     const [message, setMessage] = useState("")
     const [answering, setAnswering] = useState(false)
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
-            askChat(chatId, message, chat, setChat, setAnswering);
+            askChat(chatId, setChatId, message, chat, setChat, setAnswering);
             setMessage("");
         }
     }
@@ -31,7 +34,7 @@ function MessageBox(props) {
                     onKeyDown={handleKeyDown}
                     endAdornment={
                         <Button disabled={answering} position="end" onClick={() => {
-                            askChat(chatId, message, chat, setChat, setAnswering);
+                            askChat(chatId, setChatId, message, chat, setChat, setAnswering, chatId === -1 ? chats : null, chatId === -1 ? setChats : null);
                             setMessage("")
                         }}>
                             {answering ? <CircularProgress size={20} thickness={5} /> : <SendIcon />}
