@@ -64,7 +64,7 @@ class AuthenticationController {
       ),
       sameSite: "None",
       httpOnly: false,
-      secure: false,
+      secure: true,
     };
     if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
     if (process.env.NODE_ENV === "production") cookieOptions.httpOnly = true;
@@ -164,13 +164,14 @@ class AuthenticationController {
    * @returns void
    */
   logOut = (req, res) => {
-    //res.clearCookie("jwt");
-    res.cookie("jwt", "loggedout", {
-      expires: new Date(Date.now() + 10 * 1000),
-      sameSite: "None",
-      httpOnly: process.env.NODE_ENV === "production" ? true : false,
-      secure: process.env.NODE_ENV === "production" ? true : false,
-    });
+    res.clearCookie("jwt");
+    // res.cookie("jwt", "loggedout", {
+    //   expires: new Date(Date.now() + 10 * 1000),
+    //   sameSite: "None",
+    //   httpOnly: process.env.NODE_ENV === "production" ? true : false,
+    //   // secure: process.env.NODE_ENV === "production" ? true : false,
+    //   secure: true
+    // });
     res.status(200).json({
       status: "success",
     });
@@ -186,6 +187,7 @@ class AuthenticationController {
    */
   authorize = async (req, res, next) => {
     let token;
+    console.log(req.cookies);
     if (req.cookies.jwt) {
       token = req.cookies.jwt;
     } else {

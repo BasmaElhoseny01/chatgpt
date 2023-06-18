@@ -143,7 +143,28 @@ class ChatController {
       });
     }
   }
-
+ getAllConversation = async (req, res) => {
+    try {
+     
+      const response = await this.chatService.getAllConversation(req.user._id);
+      if (!response.success) {
+      
+        return res.status(500).json({
+          status: "fail",
+          message: " Internal server error"
+        });
+      }
+      return res.status(200).json({
+        status: "OK",
+        data: response.data
+      });
+    }catch (err) {
+      return res.status(500).json({
+         status: "fail",
+         message:"Internal Server Error"
+      });
+    }
+  }
 
 }
 

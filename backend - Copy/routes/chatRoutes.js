@@ -11,5 +11,7 @@ router.use(AuthenticationController.authorize);
 router.route("/").post(ChatController.startConversation);
 router.route("/:conversationId").post(ChatController.continueConversation);
 router.route("/:conversationId").get(ChatController.getConversation);
+router.route("/").get(ChatController.getAllConversation);
+
 
 module.exports = router;

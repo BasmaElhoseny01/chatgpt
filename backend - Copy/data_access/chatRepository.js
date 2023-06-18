@@ -50,6 +50,17 @@ class ChatRepository extends Repository {
     }
   }
 
+  async getAllConversation(userId) {
+    try {
+     
+      let doc = await this.model.find({ "user": userId }).select("_id title createdAt");
+      // console.log(doc[0].owner);
+      if (!doc) return { success: false, error: mongoErrors.NOT_FOUND };
+      return { success: true, doc: doc };
+    } catch (err) {
+      return { success: false, ...decorateError(err) };
+    }
+  }
    async findChatWithTopMsgs(chatId) {
      try {
        console.log("uuuuuuuuuuuuuuuuuuuu");
@@ -58,47 +69,7 @@ class ChatRepository extends Repository {
           .findOne({ _id: ObjectId(chatId) },
                   { title: 1, user: 1, createdAt: 1, messages: { $slice: -10 } })
           .populate({ path: 'messages', options: { sort: { createdAt: 1 } } });
-//       const doc = await this.model.aggregate([
-//          {
-//            $match: {
-//              _id: ObjectId(chatId)
-//            }
-//          },
-//          {
-//            $project: {
-//               _id: 1,
-//                 title: 1,
-//                 user: 1,
-//                 createdAt:1,
-//                 messages: {
-//                   $slice: ["$messages", -10 ]  
-//                 }
-//             }   
-//          },
-//          {
-//    $lookup:
-//      {
-//        from: "Message",
-//        localField: "messages",
-//        foreignField: "_id",
-//        as: "messages"
-//      }
-// },
-//   {
-//     $group: {
-//       _id: "$_id",
-//       title: { $first: "$title" },
-//       user: { $first: "$user" },
-//       createdAt: { $first: "$createdAt" },
-//       messages: { $push: "$messages" }
-//     }
-//   }
-  
-//        ]);
-      //  console.log("iiiiiiiiiiiiiiiiiiiiiiii");
-      //  console.log(doc);  
-      //  console.log("ooooooooooooooooooooooooooo");
-      //  console.log(doc[0].messages);
+
        if (doc) {
          return { success: true, doc: doc };
        }

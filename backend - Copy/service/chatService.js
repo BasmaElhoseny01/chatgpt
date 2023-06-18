@@ -3,9 +3,10 @@ const {
 } = require("../error_handling/errors");
 // const UserService = require("./pinService");
 const { Configuration, OpenAIApi } = require("openai");
-
+const API_KEY = process.env.API_KEY;
 const config = new Configuration({
-	apiKey: "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",
+
+	apiKey: API_KEY,
 });
 
 const openai = new OpenAIApi(config);
@@ -181,6 +182,41 @@ class ChatService {
     
 
     } catch (err) {
+      return { success: false, error: chatErrors.IN_OPENAI };
+    }
+
+
+    
+  }
+  
+
+
+  
+ async getAllConversation(userId) {
+  
+
+
+    try {
+
+     
+      const chat = await this.chatRepository.getAllConversation(userId);
+      console.log(chat);
+      if (!chat.success) {
+        return { success: false, error: chatErrors.MONGO_ERR };
+      }
+     
+
+      
+
+      console.log(chat);
+        
+
+    
+      return { success: true, data: chat.doc };
+    
+
+    } catch (err) {
+      console.log(err);
       return { success: false, error: chatErrors.IN_OPENAI };
     }
 
