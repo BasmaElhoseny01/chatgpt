@@ -83,7 +83,6 @@ export const logIn = (email, password, setPassword) => {
 };
 
 export const signUp = (email, password, setPassword) => {
-
     if (password === '') {
         setPassword(() => ({
             error: true,

@@ -7,6 +7,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { DrawerHeader } from './styles'
 import ChatItem from './ChatItem'
+
+// import { newChat } from './server'
+
 function SideBar(props) {
     const { chatId, setChatId } = props;
 
@@ -39,7 +42,7 @@ function SideBar(props) {
                     open={open}
                 >
                     <DrawerHeader>
-                        <Button variant="outlined" color="grey" sx={{ margin: '2px', width: "70%" }} fontFamily="monospace" onClick={() => console.log("new chat")}>+ New chat</Button>
+                        <Button variant="outlined" color="grey" sx={{ margin: '2px', width: "70%" }} fontFamily="monospace" onClick={()=>setChatId(-1)}>+ New chat</Button>
                         <Button variant="outlined" color="grey" sx={{ margin: '2px', width: "20%" }} onClick={() => setOpen(false)}>
                             <ChevronLeftIcon />
                         </Button>

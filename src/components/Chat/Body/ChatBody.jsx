@@ -10,7 +10,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { logOut } from '../../server';
 
 function ChatBody(props) {
-    const { chatId } = props;
+    const { chatId, setchatId } = props;
 
     //useState
     const [chat, setChat] = useState([]);
@@ -18,17 +18,17 @@ function ChatBody(props) {
     useEffect(() => {
         //Load history
         loadChat(chatId, setChat)
-
     }, [chatId])
     return (
         <ChatBodyContainer>
+            <h1>Chat{chatId}</h1>
             <Button variant="outlined" color="black" sx={{ margin: '2px', width: "10%" }} fontFamily="monospace" onClick={() => logOut()}>
                 <LogoutIcon />
             </Button>
             {chat.map((message) =>
                 < Message key={message.id} chat={message.bot} message={message.message} />
             )}
-            <MessageBox chatId={chatId} chat={chat} setChat={setChat} />
+            <MessageBox chatId={chatId} setchatId={setchatId} chat={chat} setChat={setChat} />
 
         </ChatBodyContainer>
     )

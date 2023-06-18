@@ -15,18 +15,19 @@ function Chat() {
     const [cookies, setCookie] = useCookies();
 
     useEffect(() => {
-        // isLoggedIn();
         console.log(cookies.jwt)
         if (!cookies.jwt) {
             redirectLogin();
         }
+        //newChat
+        setChatId(-1);
     }, [])
 
     return (
         <ChatContainer>
             <SideBar chatId={chatId} setChatId={setChatId} />
 
-            <ChatBody chatId={chatId} />
+            <ChatBody chatId={chatId} setchatId={setChatId} />
         </ChatContainer>
     )
 }

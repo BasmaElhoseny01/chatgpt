@@ -10,14 +10,14 @@ import { askChat } from './server';
 
 function MessageBox(props) {
 
-    const { chatId, chat, setChat } = props
+    const { chatId, setchatId, chat, setChat } = props
 
     const [message, setMessage] = useState("")
     const [answering, setAnswering] = useState(false)
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
-            askChat(chatId, message, chat, setChat, setAnswering);
+            askChat(chatId,setchatId, message, chat, setChat, setAnswering);
             setMessage("");
         }
     }
@@ -31,7 +31,7 @@ function MessageBox(props) {
                     onKeyDown={handleKeyDown}
                     endAdornment={
                         <Button disabled={answering} position="end" onClick={() => {
-                            askChat(chatId, message, chat, setChat, setAnswering);
+                            askChat(chatId, setchatId, message, chat, setChat, setAnswering);
                             setMessage("")
                         }}>
                             {answering ? <CircularProgress size={20} thickness={5} /> : <SendIcon />}

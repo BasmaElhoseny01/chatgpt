@@ -1,30 +1,44 @@
-const sendMessage = (chatId, message) => {
-    //Call Endpoint
-    console.log(message)
-    //return object of the new message
+import axios from '../../../../services/instance'
+const sendMessage = (message) => {
+    //return message
     return { id: 1, bot: false, message: message }
 }
 
-const receiveMessage = (chatId) => {
+const receiveMessage = (chatId, setchatId, message, chat, setChat, setAnswering) => {
+    if (chatId === -1) {
+        //new Chat
+        axios.post('/chats', { question: message }).then((res) => {
+            setAnswering(false);
+
+            setchatId(res.data.data.chat_id);
+
+        }).catch((error) => {
+            // if (error.response.status === 400) {
+            // }
+        })
+
+    }
+    else {
+        //old chat
+    }
     //Call EndPoint
-    const message = "Response from Bot"
+    // const message = "Response from Bot"
     return { id: 10, bot: true, message: message }
 }
 
-export const askChat = (chatId, message, chat, setChat, setAnswering) => {
+export const askChat = (chatId, setchatId, message, chat, setChat, setAnswering) => {
     setAnswering(true)
-    const msgDoc = sendMessage(chatId, message);
+    const msgDoc = sendMessage(message);
     // Add this msg to the stack
     const chat_q = chat.concat(msgDoc);
     setChat(chat.concat(msgDoc))
 
-    setTimeout(() => {
-        //Take Response from the Bot
-        const resDoc = receiveMessage(chatId);
-        // Add this response to the stack
-        setChat(chat_q.concat(resDoc))
-        setAnswering(false)
-    }, 0)
+
+    //Take Response from the Bot
+    const resDoc = receiveMessage(chatId, setchatId, message, chat, setChat, setAnswering);
+    // Add this response to the stack
+    // setChat(chat_q.concat(resDoc))
+    // setAnswering(false)
 
 
     return
