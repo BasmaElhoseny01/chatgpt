@@ -10,18 +10,20 @@ import ChatItem from './ChatItem'
 
 import { useChatIdContext } from '../../../contexts/ChatIdContext'
 
+import { loadChats } from './server'
+
 
 function SideBar(props) {
 
-    const { chatId, setChatId } = useChatIdContext();
+    const { chatId, setChatId, chats, setChats } = useChatIdContext();
 
     const [open, setOpen] = useState(true)
-    const [chats, setChats] = useState([])
+    // const [chats, setChats] = useState([])
 
     //useEffect
     useEffect(() => {
         //Load Chats from API
-        setChats([{ id: 1, title: "Hello chat" }, { id: 2, title: "Bye chat" }])
+        loadChats(setChats);
     }, [])
 
     return (

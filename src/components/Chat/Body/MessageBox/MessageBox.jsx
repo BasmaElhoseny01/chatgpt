@@ -10,7 +10,7 @@ import { askChat } from './server';
 import { useChatIdContext } from '../../../../contexts/ChatIdContext';
 
 function MessageBox(props) {
-    const { chatId, setChatId } = useChatIdContext();
+    const { chatId, setChatId, chats, setChats } = useChatIdContext();
 
 
     const { chat, setChat } = props
@@ -34,7 +34,7 @@ function MessageBox(props) {
                     onKeyDown={handleKeyDown}
                     endAdornment={
                         <Button disabled={answering} position="end" onClick={() => {
-                            askChat(chatId, setChatId, message, chat, setChat, setAnswering);
+                            askChat(chatId, setChatId, message, chat, setChat, setAnswering, chatId === -1 ? chats : null, chatId === -1 ? setChats : null);
                             setMessage("")
                         }}>
                             {answering ? <CircularProgress size={20} thickness={5} /> : <SendIcon />}
