@@ -14,7 +14,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <h1>HHll</h1>
       <ChatIdContextProvider>
         <Router className="App">
           <Routes>

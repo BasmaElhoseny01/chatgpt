@@ -80,8 +80,8 @@ function Authentication(props) {
                         }
                     }}>Continue</Button>
                     <Typography variant='p'>
-                        {login ? <>Don't have an account?<StyledLink href="../signup">Sign up</StyledLink></>
-                            : <>Already have an account?<StyledLink href="../login">Log in</StyledLink></>}
+                        {login ? <>Don't have an account?<StyledLink href="../#/signup">Sign up</StyledLink></>
+                            : <>Already have an account?<StyledLink href="../#/login">Log in</StyledLink></>}
                     </Typography>
 
                     <Divider />
