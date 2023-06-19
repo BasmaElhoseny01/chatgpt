@@ -34,7 +34,7 @@ export const checkPassword = (password) => {
 
 }
 
-export const logIn = (email, password, setPassword) => {
+export const logIn = (email, password, setPassword, setCookie) => {
     let response;
     if (password === '') {
         setPassword(() => ({
@@ -49,6 +49,8 @@ export const logIn = (email, password, setPassword) => {
                 text: '',
                 password: password
             }));
+            const date = new Date(res.data.expiresIn);
+            setCookie('chatgpt', res.data.token, { path: '/', expires: date });
             redirectHome();
 
             return true//not used :(
@@ -82,7 +84,7 @@ export const logIn = (email, password, setPassword) => {
     }
 };
 
-export const signUp = (email, password, setPassword) => {
+export const signUp = (email, password, setPassword, setCookie) => {
     if (password === '') {
         setPassword(() => ({
             error: true,
@@ -97,6 +99,8 @@ export const signUp = (email, password, setPassword) => {
                 text: '',
                 password: password
             }));
+            const date = new Date(res.data.expiresIn);
+            setCookie('chatgpt', res.data.token, { path: '/', expires: date });
             redirectHome();
 
             return true//not used :(
@@ -128,8 +132,10 @@ export const signUp = (email, password, setPassword) => {
 };
 
 
-export const logOut = () => {
+export const logOut = (removeCookie) => {
     axios.post('/users/logout').then((res) => {
+        //remove chatgpt cookie
+        removeCookie('chatgpt', { path: '/' });
         redirectLogin();
     }).catch((error) => {
 
@@ -142,10 +148,12 @@ export const responseGoogleFail = (googleResponse) => {
 };
 
 
-export const responseGoogleSuccess = (googleResponse) => {
+export const responseGoogleSuccess = (googleResponse, setCookie) => {
     console.log('Google', googleResponse);
     //Log in with google Endpoints
     axios.post('/users/google', { tokenId: googleResponse.tokenId }).then((response) => {
+        const date = new Date(response.data.expiresIn);
+        setCookie('chatgpt', response.data.token, { path: '/', expires: date });
         redirectHome();
     })
         .catch((error) => {

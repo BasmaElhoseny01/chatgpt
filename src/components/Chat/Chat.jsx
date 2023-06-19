@@ -15,11 +15,11 @@ function Chat() {
     // const [chatId, setChatId] = useState();
     const { setChatId } = useChatIdContext()
 
-    const [cookies, setCookie] = useCookies();
+    const [cookies, setCookie, removeCookie] = useCookies([]);
 
     useEffect(() => {
         // console.log(cookies.jwt)
-        if (!cookies.jwt) {
+        if (!cookies.chatgpt) {
             redirectLogin();
         }
         //newChat
@@ -29,7 +29,7 @@ function Chat() {
     return (
         <ChatContainer>
             <SideBar />
-            <ChatBody />
+            <ChatBody removeCookie={removeCookie} />
         </ChatContainer>
     )
 }

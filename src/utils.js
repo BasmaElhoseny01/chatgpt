@@ -1,4 +1,4 @@
-// import { Cookies } from 'react-cookie';
+// services
 
 export const EmailFormat = (email) => {
   if (/\S+@\S+\.\S+/.test(email)) return true;
@@ -10,7 +10,7 @@ export const EmailFormat = (email) => {
 export const redirectHome = (time = 0) => {
   setTimeout(() => {
     // Redirect to home page
-    window.location.href= '/#/';
+    window.location.href = process.env.PUBLIC_URL + '/#/';
   }, time);
 };
 
@@ -18,7 +18,7 @@ export const redirectHome = (time = 0) => {
 export const redirectLogin = (time = 0) => {
   setTimeout(() => {
     // Redirect to login page
-    window.location.href = '/#/login';
+    window.location.href = process.env.PUBLIC_URL + '/#/login';
   }, time);
 };
 

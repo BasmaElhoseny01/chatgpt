@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useCookies } from 'react-cookie';
 
 import { Button, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material'
 //Icons
@@ -41,6 +42,10 @@ function Authentication(props) {
     const [showPassword, setShowPassword] = useState(false)
     const [passwordStrength, setPasswordStrength] = useState({ show: false, state: false })
 
+    //cookies
+    const [cookies, setCookies] = useCookies(['chatgpt']);
+
+
 
     const initClient = () => {
         gapi.auth2.init({
@@ -80,8 +85,8 @@ function Authentication(props) {
                         }
                     }}>Continue</Button>
                     <Typography variant='p'>
-                        {login ? <>Don't have an account?<StyledLink href="../#/signup">Sign up</StyledLink></>
-                            : <>Already have an account?<StyledLink href="../#/login">Log in</StyledLink></>}
+                        {login ? <>Don't have an account?<StyledLink href={window.location.pathname + '#/signup'}>Sign up</StyledLink></>
+                            : <>Already have an account?<StyledLink href={window.location.pathname + '#/login'}>Log in</StyledLink></>}
                     </Typography>
 
                     <Divider />
@@ -90,7 +95,7 @@ function Authentication(props) {
                             <ThirdPartyButton onClick={renderProps.onClick} img={Google} alt="Google" txt="continue with google" />
                         )}
                         clientId={REACT_APP_GOOGLECLIENTID}
-                        onSuccess={(googleResponse) => responseGoogleSuccess(googleResponse)}
+                        onSuccess={(googleResponse) => responseGoogleSuccess(googleResponse, setCookies)}
                         onFailure={responseGoogleFail}
                         cookiePolicy="single_host_origin"
                     />
@@ -170,12 +175,12 @@ function Authentication(props) {
 
 
                     <Button variant="contained" fullWidth={true} sx={{ margin: "15px" }} onClick={() => {
-                        login ? logIn(email.email, password.password, setPassword) : signUp(email.email, password.password, setPassword)
+                        login ? logIn(email.email, password.password, setPassword, setCookies) : signUp(email.email, password.password, setPassword, setCookies)
                     }}>Continue</Button>
 
                     <Typography variant='p'>
-                        {login ? <>Don't have an account?<StyledLink href="../signup">Sign up</StyledLink></>
-                            : <>Already have an account?<StyledLink href="../login">Log in</StyledLink></>}
+                        {login ? <>Don't have an account?<StyledLink href={process.env.PUBLIC_URL + '/#/login'}>Sign up</StyledLink></>
+                            : <>Already have an account?<StyledLink href={`/${process.env.PUBLIC_URL}/login`}>Log in</StyledLink></>}
                     </Typography>
 
                 </>

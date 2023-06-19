@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie';
+
 import { ChatBodyContainer } from './styles'
 import Message from './Message/Message'
 import MessageBox from './MessageBox/MessageBox'
@@ -13,6 +15,11 @@ import { useChatIdContext } from '../../../contexts/ChatIdContext';
 
 function ChatBody(props) {
     const { chatId } = useChatIdContext();
+    // const [cookies, setCookies, removeCookie] = useCookies([]);
+    const { removeCookie } = props
+
+
+
 
 
     //useState
@@ -24,7 +31,7 @@ function ChatBody(props) {
     }, [chatId])
     return (
         <ChatBodyContainer>
-            <Button variant="outlined" color="black" sx={{ margin: '2px', width: "10%" }} fontFamily="monospace" onClick={() => logOut()}>
+            <Button variant="outlined" color="black" sx={{ margin: '2px', width: "10%" }} fontFamily="monospace" onClick={() => logOut(removeCookie)}>
                 <LogoutIcon />
             </Button>
             {chat.map((message) =>
