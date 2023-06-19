@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 // import LoginPage from './pages/LoginPage';
 import LogIn from './components/LogIn';
@@ -13,17 +13,17 @@ import ChatIdContextProvider from './contexts/ChatIdContext';
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <h1>bosy1</h1>
-      {/* <CssBaseline />
+      <CssBaseline />
+      <h1>HHll</h1>
       <ChatIdContextProvider>
         <Router className="App">
           <Routes>
-            <Route path={process.env.PUBLIC_URL + '/login'} element={<LogIn />} />
-            <Route path={process.env.PUBLIC_URL + '/signup'} element={<SignUp />} />
-            <Route path={process.env.PUBLIC_URL + '/'} element={<Chat />} />
+            <Route path={'/'} element={<Chat />} />
+            <Route path={'/login'} element={<LogIn />} />
+            <Route path={'/signup'} element={<SignUp />} />
           </Routes>
         </Router>
-      </ChatIdContextProvider> */}
+      </ChatIdContextProvider>
     </ThemeProvider>
   );
 }

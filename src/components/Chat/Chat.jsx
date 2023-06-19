@@ -28,7 +28,7 @@ function Chat() {
 
     return (
         <ChatContainer>
-            <h1>Basdf</h1>
+            <h1>NNNN</h1>
             <SideBar />
             <ChatBody />
         </ChatContainer>
