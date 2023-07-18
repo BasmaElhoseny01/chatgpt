@@ -18,16 +18,12 @@ function ChatBody(props) {
     // const [cookies, setCookies, removeCookie] = useCookies([]);
     const { removeCookie } = props
 
-
-
-
-
     //useState
     const [chat, setChat] = useState([]);
     //useEffect
     useEffect(() => {
         //Load history
-        loadChat(chatId, setChat)
+        loadChat(chatId, setChat);
     }, [chatId])
     return (
         <ChatBodyContainer>

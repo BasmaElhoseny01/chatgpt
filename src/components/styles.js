@@ -11,6 +11,13 @@ export const AuthenticationContainer = styled(Box)(() => ({
     display: 'flex',
     flexDirection: "column",
     alignItems: 'center',
+    justifyContent: 'center',
+
+
+    // position: "absolute",
+    // left: "50%",
+    // top: "50%",
+    // transform: "translate(-50%, -50%)",
 
     "& *": {
         // child selector (.MuiBox-root .ChildSelector)
