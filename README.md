@@ -57,6 +57,7 @@ Try our <a href="https://basmaelhoseny01.github.io/chatgpt/#/login">chatGPT</a> 
 <hr style="background-color: #4b4c60"></hr>
 
 ## 🎥 Screen Shots <a id ="video"></a>
-![image](https://github.com/BasmaElhoseny01/chatgpt/assets/72309546/2de7ee18-a971-407d-a1bb-38c100add75c)
-<img width="956" alt="image" src="https://github.com/BasmaElhoseny01/chatgpt/assets/72309546/fc485aa0-7681-4551-aa9c-2dbdba0ff986">
-![image](https://github.com/BasmaElhoseny01/chatgpt/assets/72309546/b3a90566-9c72-40af-a04c-118633219c6c)
+![image](https://github.com/BasmaElhoseny01/chatgpt/assets/72309546/38ad461f-3fa2-4698-9e97-5ec9576acd08)
+![image](https://github.com/BasmaElhoseny01/chatgpt/assets/72309546/65cbf70b-87cb-462f-86e8-19252284dc3c)
+<img width="956" alt="image" src="https://github.com/BasmaElhoseny01/chatgpt/assets/72309546/cc43caf6-b7a7-4b8d-95b1-675041fd63f2">
+
